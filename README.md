@@ -1,26 +1,25 @@
 ## Board overlay and Dts for Seven
 
-To use this tree:
-In `west.yml`
+
+In order to use seven-nrf9151 as a Zephyr module in a West project, you will need to add seven-nrf9151 to your project's west manifest:
 
 ```
 manifest:
-  remotes:
-    - name: ncs
-      url-base: https://github.com/nrfconnect
-    - name: id8
-      url-base: https://github.com/id8-engineering
-
   projects:
-    - name: nrf
-      remote: ncs
-      repo-path: sdk-nrf
-      revision: v3.2.1
-      import: true
-
     - name: seven-board
-      remote: id8
+      url-base: https://github.com/id8-engineering
       repo-path: seven-board
       revision: main
-      path: seven-board
+      path: modules/seven-nrf9151
+```
+
+This repository is a Zephyr module and exposes:
+
+- `board_root: .`
+- `dts_root: .`
+
+After `west update`, the board should be available as:
+
+```sh
+west build -b seven/nrf9151/ns <app>
 ```
