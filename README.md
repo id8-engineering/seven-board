@@ -10,7 +10,7 @@ manifest:
       url-base: https://github.com/id8-engineering
       repo-path: seven-board
       revision: main
-      path: modules/seven-nrf9151
+      path: modules/seven-board
 ```
 
 This repository is a Zephyr module and exposes:
