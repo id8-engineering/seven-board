@@ -15,6 +15,7 @@
 		zephyr,led-strip = &system_led;
 		zephyr,shell-uart = &uart0;
 		zephyr,uart-mcumgr = &uart0;
+		ncs,at-host-uart = &uart0;
 	};
 
 	/*
