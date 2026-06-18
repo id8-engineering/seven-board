@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PORT="${1:-/dev/ttyUSB0}"
+BAUD="${2:-115200}"
+IMAGE="${3:-build/app/zephyr/zephyr.signed.bin}"
+REBOOT_WAIT_SECONDS="${SEVEN_MGR_REBOOT_WAIT_SECONDS:-20}"
+RETRY_COUNT="${SEVEN_MGR_RETRY_COUNT:-10}"
+RETRY_DELAY_SECONDS="${SEVEN_MGR_RETRY_DELAY_SECONDS:-5}"
+CONN=(--conntype serial --connstring "${PORT},baud=${BAUD}")
+
+image_list_retry() {
+  local attempt
+
+  for attempt in $(seq 1 "$RETRY_COUNT"); do
+    if mcumgr "${CONN[@]}" image list; then
+      return 0
+    fi
+
+    echo "mcumgr not ready, retry ${attempt}/${RETRY_COUNT} in ${RETRY_DELAY_SECONDS}s..." >&2
+    sleep "$RETRY_DELAY_SECONDS"
+  done
+
+  return 1
+}
+
+if ! command -v mcumgr >/dev/null 2>&1; then
+  echo "error: mcumgr not found in PATH" >&2
+  exit 1
+fi
+
+if [ ! -e "$IMAGE" ]; then
+  echo "error: image not found: $IMAGE" >&2
+  exit 1
+fi
+
+if command -v fuser >/dev/null 2>&1 && fuser "$PORT" >/dev/null 2>&1; then
+  echo "warning: $PORT is in use. Close minicom if mcumgr times out." >&2
+fi
+
+echo "Using port:  $PORT"
+echo "Using baud:  $BAUD"
+echo "Using image: $IMAGE"
+echo
+
+echo "Current images:"
+mcumgr "${CONN[@]}" image list
+
+echo
+echo "Uploading image..."
+mcumgr "${CONN[@]}" image upload "$IMAGE"
+
+echo
+echo "Reading uploaded slot hash..."
+LIST="$(mcumgr "${CONN[@]}" image list)"
+echo "$LIST"
+
+SLOT1_HASH="$(printf '%s\n' "$LIST" | awk '
+  /image=0 slot=1/ { in_slot=1; next }
+  in_slot && /hash:/ { print $2; exit }
+')"
+
+if [ -z "$SLOT1_HASH" ]; then
+  echo "error: could not find slot 1 hash" >&2
+  exit 1
+fi
+
+echo
+echo "Marking slot 1 for test: $SLOT1_HASH"
+mcumgr "${CONN[@]}" image test "$SLOT1_HASH"
+
+echo
+echo "Resetting board into test image..."
+mcumgr "${CONN[@]}" reset
+
+echo "Waiting ${REBOOT_WAIT_SECONDS}s for reboot..."
+sleep "$REBOOT_WAIT_SECONDS"
+
+echo
+echo "Reading active image after reboot..."
+if ! LIST="$(image_list_retry)"; then
+  echo "error: could not reconnect after reset, so image was not confirmed" >&2
+  echo "The uploaded image is still in test mode and may revert on the next reset." >&2
+  echo "When MCUmgr responds again, run:" >&2
+  echo "  mcumgr --conntype serial --connstring '${PORT},baud=${BAUD}' image list" >&2
+  echo "  mcumgr --conntype serial --connstring '${PORT},baud=${BAUD}' image confirm <active-hash>" >&2
+  exit 1
+fi
+echo "$LIST"
+
+ACTIVE_HASH="$(printf '%s\n' "$LIST" | awk '
+  /image=0 slot=0/ { in_slot=1; active=0; next }
+  in_slot && /flags:/ && /active/ { active=1; next }
+  in_slot && active && /hash:/ { print $2; exit }
+')"
+
+if [ -z "$ACTIVE_HASH" ]; then
+  echo "error: could not find active slot 0 hash after reboot" >&2
+  exit 1
+fi
+
+if [ "$ACTIVE_HASH" != "$SLOT1_HASH" ]; then
+  echo "error: active image is not the uploaded image" >&2
+  echo "uploaded: $SLOT1_HASH" >&2
+  echo "active:   $ACTIVE_HASH" >&2
+  exit 1
+fi
+
+echo
+echo "Confirming active image: $ACTIVE_HASH"
+mcumgr "${CONN[@]}" image confirm "$ACTIVE_HASH"
+
+echo
+echo "Final images:"
+image_list_retry

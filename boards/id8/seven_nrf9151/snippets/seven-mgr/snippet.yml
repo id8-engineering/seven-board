@@ -1,0 +1,8 @@
+name: seven-mgr
+append:
+  SB_EXTRA_CONF_FILE: sysbuild.conf
+
+boards:
+  seven/nrf9151/ns:
+    append:
+      EXTRA_CONF_FILE: app.conf
