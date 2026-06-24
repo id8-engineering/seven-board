@@ -125,3 +125,18 @@ References
 **********
 
 .. target-notes::
+
+.. _Seven hardware documentation:
+   https://github.com/id8-engineering/seven-hardware
+
+.. _nRF9151 website:
+   https://www.nordicsemi.com/Products/nRF9151
+
+.. _Nordic Semiconductor TechDocs:
+   https://docs.nordicsemi.com/
+
+.. _Trusted Firmware M:
+   https://www.trustedfirmware.org/projects/tf-m/
+
+.. _mikroBUS standard:
+   https://www.mikroe.com/mikrobus
