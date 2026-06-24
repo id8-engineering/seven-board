@@ -84,22 +84,6 @@ On-board peripherals
 mikroBUS™ 1
 ----------
 
-* AN = ``P0.14``
-* RST = ``P0.02``
-* CS = ``P0.00``
-* SCK = ``P0.06``
-* MISO = ``P0.05``
-* MOSI = ``P0.04``
-* PWM = ``P0.03``
-* INT = ``P0.01``
-* RX = ``P0.11``
-* TX = ``P0.10``
-* SCL = ``P0.08``
-* SDA = ``P0.09``
-
-mikroBUS™ 2
-----------
-
 * AN = ``P0.20``
 * RST = ``P0.16``
 * CS = ``P0.07``
@@ -112,6 +96,22 @@ mikroBUS™ 2
 * TX = ``P0.12``
 * SCL = ``P0.23``
 * SDA = ``P0.22``
+
+mikroBUS™ 2
+----------
+
+* AN = ``P0.14``
+* RST = ``P0.02``
+* CS = ``P0.00``
+* SCK = ``P0.06``
+* MISO = ``P0.05``
+* MOSI = ``P0.04``
+* PWM = ``P0.03``
+* INT = ``P0.01``
+* RX = ``P0.11``
+* TX = ``P0.10``
+* SCL = ``P0.08``
+* SDA = ``P0.09``
 
 Programming and Debugging
 *************************
