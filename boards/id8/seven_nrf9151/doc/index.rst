@@ -14,7 +14,7 @@ Seven is based on the Nordic nRF9151 and provides:
 
 * LTE-M / NB-IoT modem support
 * GNSS support
-* 6 V to 40 V input supply
+* 6 V to 36 V input supply
 * One Nano-SIM card holder
 * LTE and GNSS SMA connectors
 * One WS2812-compatible system LED on ``P0.18``
