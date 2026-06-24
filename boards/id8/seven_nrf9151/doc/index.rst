@@ -3,7 +3,7 @@
 Overview
 ********
 
-Seven is a custom nRF9151-based board from ID8 Engineering. The
+Seven is a custom nRF9151-based board from ID8 Engineering AB. The
 ``seven/nrf9151`` board target supports the Nordic Semiconductor nRF9151 ARM
 Cortex-M33 CPU with Armv8-M Security Extension.
 
