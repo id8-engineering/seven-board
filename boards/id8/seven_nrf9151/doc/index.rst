@@ -3,7 +3,7 @@
 Overview
 ********
 
-Seven is a custom nRF9151-based board from ID8 Engineering. The
+Seven is a custom nRF9151-based board from ID8 Engineering AB. The
 ``seven/nrf9151`` board target supports the Nordic Semiconductor nRF9151 ARM
 Cortex-M33 CPU with Armv8-M Security Extension.
 
@@ -14,7 +14,7 @@ Seven is based on the Nordic nRF9151 and provides:
 
 * LTE-M / NB-IoT modem support
 * GNSS support
-* 6 V to 40 V input supply
+* 6 V to 36 V input supply
 * One Nano-SIM card holder
 * LTE and GNSS SMA connectors
 * One WS2812-compatible system LED on ``P0.18``
@@ -84,22 +84,6 @@ On-board peripherals
 mikroBUS™ 1
 ----------
 
-* AN = ``P0.14``
-* RST = ``P0.02``
-* CS = ``P0.00``
-* SCK = ``P0.06``
-* MISO = ``P0.05``
-* MOSI = ``P0.04``
-* PWM = ``P0.03``
-* INT = ``P0.01``
-* RX = ``P0.11``
-* TX = ``P0.10``
-* SCL = ``P0.08``
-* SDA = ``P0.09``
-
-mikroBUS™ 2
-----------
-
 * AN = ``P0.20``
 * RST = ``P0.16``
 * CS = ``P0.07``
@@ -113,6 +97,22 @@ mikroBUS™ 2
 * SCL = ``P0.23``
 * SDA = ``P0.22``
 
+mikroBUS™ 2
+----------
+
+* AN = ``P0.14``
+* RST = ``P0.02``
+* CS = ``P0.00``
+* SCK = ``P0.06``
+* MISO = ``P0.05``
+* MOSI = ``P0.04``
+* PWM = ``P0.03``
+* INT = ``P0.01``
+* RX = ``P0.11``
+* TX = ``P0.10``
+* SCL = ``P0.08``
+* SDA = ``P0.09``
+
 Programming and Debugging
 *************************
 
@@ -125,3 +125,18 @@ References
 **********
 
 .. target-notes::
+
+.. _Seven hardware documentation:
+   https://github.com/id8-engineering/seven-hardware
+
+.. _nRF9151 website:
+   https://www.nordicsemi.com/Products/nRF9151
+
+.. _Nordic Semiconductor TechDocs:
+   https://docs.nordicsemi.com/
+
+.. _Trusted Firmware M:
+   https://www.trustedfirmware.org/projects/tf-m/
+
+.. _mikroBUS standard:
+   https://www.mikroe.com/mikrobus

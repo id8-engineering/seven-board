@@ -6,7 +6,6 @@
 
 /dts-v1/;
 #include <nordic/nrf9151_laca.dtsi>
-#include "seven_nrf9151_common-pinctrl.dtsi"
 #include "seven_nrf9151_common.dtsi"
 
 / {
