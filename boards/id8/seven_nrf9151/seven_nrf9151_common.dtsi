@@ -8,6 +8,7 @@
 #include <zephyr/dt-bindings/gpio/gpio.h>
 #include <zephyr/dt-bindings/led/led.h>
 #include <zephyr/dt-bindings/pwm/pwm.h>
+#include <zephyr/dt-bindings/regulator/npm13xx.h>
 #include <nordic/nrf91xx_partition.dtsi>
 
 / {
@@ -222,6 +223,35 @@ mikrobus_2_spi: &spi3 {};
 	pinctrl-0 = <&mikrobus_2_i2c_default>;
 	pinctrl-1 = <&mikrobus_2_i2c_sleep>;
 	pinctrl-names = "default", "sleep";
+};
+
+&i2c1 {
+	compatible = "nordic,nrf-twim";
+	status = "disabled";
+	clock-frequency = <I2C_BITRATE_FAST>;
+	pinctrl-0 = <&pmic_i2c_default>;
+	pinctrl-1 = <&pmic_i2c_sleep>;
+	pinctrl-names = "default", "sleep";
+
+	npm1300: pmic@6b {
+		compatible = "nordic,npm1300";
+		reg = <0x6b>;
+		status = "disabled";
+
+		regulators {
+			compatible = "nordic,npm1300-regulator";
+
+			vdd_gnss: LDO1 {
+				regulator-initial-mode = <NPM13XX_LDSW_MODE_LDSW>;
+				regulator-boot-on;
+			};
+
+			vdd_power_led: LDO2 {
+				regulator-initial-mode = <NPM13XX_LDSW_MODE_LDSW>;
+				regulator-boot-on;
+			};
+		};
+	};
 };
 
 &spi2 {
