@@ -5,8 +5,10 @@
  */
 
 /dts-v1/;
-#include <nordic/nrf9151ns_laca.dtsi>
+#include <nordic/nrf9151_ns_laca.dtsi>
 #include "seven_nrf9151_common.dtsi"
+#include <samples/cellular/nrf91_no_bootloader_partitions.dtsi>
+#include <samples/cellular/nrf91_sram_partitions.dtsi>
 
 / {
 	model = "Seven nRF9151 Non-Secure";
