@@ -116,8 +116,8 @@ mikroBUS™ 2
 Programming and Debugging
 *************************
 
-Seven provides a TC2030 SWD/JTAG connector for programming and a UART VCOM
-interface for debug output.
+Seven provides a JST-SH connector to connect a Raspberry Pi Debug Probe
+for programming and a UART header for debug output
 
 .. zephyr:board-supported-runners::
 
