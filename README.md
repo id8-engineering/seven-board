@@ -23,3 +23,7 @@ After `west update`, the board should be available as:
 ```sh
 west build -b seven/nrf9151/ns <app>
 ```
+
+## License
+
+This repository is licensed under the [Apache License 2.0](LICENSE).
