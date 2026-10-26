@@ -45,7 +45,7 @@
 	 */
 
 	buzzer: buzzer {
-		compatible = "id8,buzzer";
+		compatible = "pwm-buzzer";
 		pwms = <&pwm1 0 PWM_MSEC(20) PWM_POLARITY_NORMAL>;
 		status = "okay";
 	};
@@ -110,8 +110,11 @@
  * these node labels directly. Socket 1 is the default connector on Seven.
  */
 mikrobus_header: &mikrobus_1_header {};
+
 mikrobus_serial: &uart2 {};
+
 mikrobus_i2c: &i2c2 {};
+
 mikrobus_spi: &spi2 {};
 
 /*
@@ -119,11 +122,15 @@ mikrobus_spi: &spi2 {};
  * shields can target either connector without depending on aliases.
  */
 mikrobus_1_serial: &uart2 {};
+
 mikrobus_1_i2c: &i2c2 {};
+
 mikrobus_1_spi: &spi2 {};
 
 mikrobus_2_serial: &uart3 {};
+
 mikrobus_2_i2c: &i2c3 {};
+
 mikrobus_2_spi: &spi3 {};
 
 &adc {
