@@ -28,7 +28,7 @@ Supported Features
 .. zephyr:board-supported-hw::
 
 mikroBUS™ Notes
-==============
+================
 
 Seven provides default interface routing for the mikroBUS™ sockets:
 
@@ -82,7 +82,7 @@ On-board peripherals
 * Debug UART RX = ``P0.26``
 
 mikroBUS™ 1
-----------
+------------
 
 * AN = ``P0.20``
 * RST = ``P0.16``
@@ -98,7 +98,7 @@ mikroBUS™ 1
 * SDA = ``P0.22``
 
 mikroBUS™ 2
-----------
+------------
 
 * AN = ``P0.14``
 * RST = ``P0.02``
